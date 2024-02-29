@@ -1,5 +1,7 @@
 from caesar import CaesarCipher
 from vigenere import VigenereCipher
+from english_words import get_english_words_set
+from datetime import datetime
 
 ### CAESAR ###
 
@@ -17,15 +19,19 @@ from vigenere import VigenereCipher
 
 ### VIGNERE ###
 
-# text = "the quick brown fox jumps over a lazy dog and a swift hare dashes through the green meadow while the wind gently whispers in the tall grass"
-# keyword = "secret"
-# ciphered_text = VigenereCipher.cipher(text=text, keyword=keyword)
-
-
-text = "vigenere"
+text = "the quick brown fox jumps over a lazy dog and a swift hare dashes through the green meadow while the wind gently whispers in the tall grass"
 keyword = "key"
 
-print(VigenereCipher.cipher(text=text, keyword=keyword))
-print(VigenereCipher.decipher(text=VigenereCipher.cipher(text=text, keyword=keyword), keyword=keyword))
+ciphered_text = VigenereCipher.cipher(text=text, keyword=keyword)
+# print(ciphered_text)
+# print(VigenereCipher.decipher(text=VigenereCipher.cipher(text=text, keyword=keyword), keyword=keyword))
 
-# print(VigenereCipher.break_cipher(text=text))
+# print(VigenereCipher.break_cipher(text=ciphered_text, keyword_length=3))
+start = datetime.now()
+deciphered_text = VigenereCipher.break_cipher(text=ciphered_text)
+stop = datetime.now()
+print(deciphered_text)
+print(stop - start)
+
+
+# f o b
