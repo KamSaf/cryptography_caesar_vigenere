@@ -17,12 +17,15 @@ from vigenere import VigenereCipher
 
 ### VIGNERE ###
 
-text = "the quick brown fox jumps over a lazy dog and a swift hare dashes through the green meadow while the wind gently whispers in the tall grass"
-keyword = "secret"
-# ciphered_text = ""
+# text = "the quick brown fox jumps over a lazy dog and a swift hare dashes through the green meadow while the wind gently whispers in the tall grass"
+# keyword = "secret"
+# ciphered_text = VigenereCipher.cipher(text=text, keyword=keyword)
 
-# text = "vigenere vigenere vigenere vigenere vigenere"
-# keyword = "keyword"
 
+text = "vigenere"
+keyword = "key"
 
 print(VigenereCipher.cipher(text=text, keyword=keyword))
+print(VigenereCipher.decipher(text=VigenereCipher.cipher(text=text, keyword=keyword), keyword=keyword))
+
+# print(VigenereCipher.break_cipher(text=text))

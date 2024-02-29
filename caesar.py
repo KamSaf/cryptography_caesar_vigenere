@@ -19,17 +19,17 @@ class CaesarCipher:
             Function which encrypts given text with a Caesar cipher
             using given shift parameter
         """
-        ciphered_text = ''
+        ciphered_text = []
         for char in text:
             if not char.isalpha():
-                ciphered_text += char
+                ciphered_text.append(char)
                 continue
             char = ord(char) + shift
             if char > CaesarCipher.LOWERCASE_Z_CODE:
                 char = (CaesarCipher.LOWERCASE_A_CODE - 1) + (char - CaesarCipher.LOWERCASE_Z_CODE)
             char = chr(char)
-            ciphered_text += char
-        return ciphered_text
+            ciphered_text.append(char)
+        return ''.join(ciphered_text)
 
     @staticmethod
     def decipher(text: str, shift: int) -> str:
@@ -37,17 +37,17 @@ class CaesarCipher:
             Function which decrypts given text encrypted from Caesar cipher
             using given shift parameter
         """
-        deciphered_text = ''
+        deciphered_text = []
         for char in text:
             if not char.isalpha():
-                deciphered_text += char
+                deciphered_text.append(char)
                 continue
             char = ord(char) - shift
             if char < CaesarCipher.LOWERCASE_A_CODE:
                 char = CaesarCipher.LOWERCASE_Z_CODE - (CaesarCipher.LOWERCASE_A_CODE - 1 - char)
             char = chr(char)
-            deciphered_text += char
-        return deciphered_text
+            deciphered_text.append(char)
+        return ''.join(deciphered_text)
 
     @staticmethod
     def break_cipher(text: str) -> str:
