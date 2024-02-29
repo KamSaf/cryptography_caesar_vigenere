@@ -10,6 +10,8 @@ class CaesarCipher:
         'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c',
         'm', 'f', 'w', 'g', 'y', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z'
     ]
+    LOWERCASE_A_CODE = 97
+    LOWERCASE_Z_CODE = 122
 
     @staticmethod
     def cipher(text: str, shift: int) -> str:
@@ -23,8 +25,8 @@ class CaesarCipher:
                 ciphered_text += char
                 continue
             char = ord(char) + shift
-            if char > 122:
-                char = 96 + (char - 122)
+            if char > CaesarCipher.LOWERCASE_Z_CODE:
+                char = (CaesarCipher.LOWERCASE_A_CODE - 1) + (char - CaesarCipher.LOWERCASE_Z_CODE)
             char = chr(char)
             ciphered_text += char
         return ciphered_text
@@ -32,7 +34,7 @@ class CaesarCipher:
     @staticmethod
     def decipher(text: str, shift: int) -> str:
         """
-            Function which decrypts given text encrypted with Caesar cipher
+            Function which decrypts given text encrypted from Caesar cipher
             using given shift parameter
         """
         deciphered_text = ''
@@ -41,8 +43,8 @@ class CaesarCipher:
                 deciphered_text += char
                 continue
             char = ord(char) - shift
-            if char < 97:
-                char = 122 - (96 - char)
+            if char < CaesarCipher.LOWERCASE_A_CODE:
+                char = CaesarCipher.LOWERCASE_Z_CODE - (CaesarCipher.LOWERCASE_A_CODE - 1 - char)
             char = chr(char)
             deciphered_text += char
         return deciphered_text
@@ -50,7 +52,7 @@ class CaesarCipher:
     @staticmethod
     def break_cipher(text: str) -> str:
         """
-            Function which decrypts given text encrypted with Caesar cipher
+            Function which decrypts given text encrypted from Caesar cipher
             with unknown shift parameter
         """
         dictionary = enchant.Dict("en_US")
