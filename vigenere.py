@@ -1,8 +1,5 @@
-from collections import Counter
 from english_words import get_english_words_set
 import enchant
-
-# jeszcze walidacja danych
 
 class VigenereCipher:
 
@@ -16,7 +13,21 @@ class VigenereCipher:
         'm', 'f', 'w', 'g', 'y', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z'
     ]
 
-    def __plain_text_colummn(char: str) -> str:
+    @staticmethod
+    def __validate_data(text: str, keyword: str = None, keyword_length: int = None) -> bool:
+        """
+            Function validating data given by user
+        """
+        if not isinstance(text, str):
+            return False
+        if keyword_length and not isinstance(keyword_length, int):
+            return False
+        if keyword and (not isinstance(keyword, str) or len(keyword) != keyword_length):
+            return False
+        return True
+
+    @staticmethod
+    def __plain_text_colummn(char: str) -> str | bool:
         """
             Function which creates plaintext array column required for Vigenere cipher
         """
@@ -25,11 +36,14 @@ class VigenereCipher:
         return plain_text_column
 
     @staticmethod
-    def cipher(text: str, keyword: str) -> str:
+    def cipher(text: str, keyword: str) -> str | bool:
         """
             Function which encrypts given text with a Vigenere cipher
-            using given keyword
+            using given keyword. Encrypted text is lower case
         """
+        if not VigenereCipher.__validate_data(text=text, keyword=keyword, keyword_length=len(keyword)):
+            return False
+        
         ciphered_text = []
         keyword_char_counter = 0
         for i in range(len(text)):
@@ -44,17 +58,24 @@ class VigenereCipher:
         return ''.join(ciphered_text)
 
     @staticmethod
-    def decipher(text: str, keyword: str) -> str:
+    def decipher(text: str, keyword: str) -> str | bool:
         """
             Function which decrypts given text from a Vigenere cipher
-            using given keyword.
+            using given keyword. Decrypted text is lower case
         """
         #  The keyword is being reversed and then used as a new keyword in cipher operation which results in encrypted text
         reversed_keyword = [VigenereCipher.ALPHABET[(VigenereCipher.ALPHABET_LENGTH - (ord(keyword[i]) - 97)) % VigenereCipher.ALPHABET_LENGTH] for i in range(len(keyword))]
         return VigenereCipher.cipher(text=text, keyword=reversed_keyword)
 
     @staticmethod
-    def break_cipher(text: str) -> str:
+    def break_cipher(text: str) -> str | bool:
+        """
+            Function which decrypts given text encrypted with Vigenere cipher
+            with unknown 3 letter long keyword (english). Decrypted text is lower case
+        """
+        if not VigenereCipher.__validate_data(text=text):
+            return False
+        
         KEYWORD_LENGTH = 3
         keys = [word for word in get_english_words_set(['web2'], lower=True, alpha=True) if len(word) == KEYWORD_LENGTH]
         dictionary = enchant.Dict("en_US")
@@ -65,33 +86,3 @@ class VigenereCipher:
             if dictionary.check(max(deciphered_text.split(), key=len)):
                 return deciphered_text
         return None
-
-
-        # print('dupa')
-        # characters = [char for char in text if char.isalpha()]
-        # common_code_chars = {i: [i] for i in range(keyword_length)}
-        # most_common_encrypted_char = Counter(characters).most_common(1)[0][0]
-
-        # for value in common_code_chars.values():
-            # while (value[-1] + keyword_length < len(characters)):
-                # value.append(value[-1] + keyword_length)
-        # return common_code_chars
-
-        # text_segments = []
-        # text_split_start = 0
-        # text_split_stop = keyword_length
-        # for _ in range(keyword_length):
-            # text_segments.append(text[text_split_start:text_split_stop])
-            # text_split_start = text_split_stop
-            # if text_split_stop + keyword_length < len(text):
-                # text_split_stop += keyword_length
-            # else:
-                # text_split_stop = len(text)
-        # return text_segments
-
-
-
-
-# 1: 0, 3, 6, 9
-# 2: 1, 4, 7, 10
-# 3: 2, 5, 8, 11

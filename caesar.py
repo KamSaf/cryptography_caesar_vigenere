@@ -1,8 +1,6 @@
 from collections import Counter
 import enchant
 
-# jeszcze walidacja danych
-
 class CaesarCipher:
 
     # Characters in order of their frequency in english language
@@ -14,11 +12,25 @@ class CaesarCipher:
     LOWERCASE_Z_CODE = 122
 
     @staticmethod
-    def cipher(text: str, shift: int) -> str:
+    def __validate_data(text: str, shift: int = None) -> bool:
+        """
+            Function validating data given by user
+        """
+        if not isinstance(text, str):
+            return False
+        if shift and not isinstance(shift, int):
+            return False
+        return True
+
+    @staticmethod
+    def cipher(text: str, shift: int) -> str | bool:
         """
             Function which encrypts given text with a Caesar cipher
             using given shift parameter
         """
+        if not CaesarCipher.__validate_data(text=text, shift=shift):
+            return False
+        
         ciphered_text = []
         for char in text:
             if not char.isalpha():
@@ -32,11 +44,14 @@ class CaesarCipher:
         return ''.join(ciphered_text)
 
     @staticmethod
-    def decipher(text: str, shift: int) -> str:
+    def decipher(text: str, shift: int) -> str | bool:
         """
             Function which decrypts given text encrypted from Caesar cipher
             using given shift parameter
         """
+        if not CaesarCipher.__validate_data(text=text, shift=shift):
+            return False
+
         deciphered_text = []
         for char in text:
             if not char.isalpha():
@@ -50,11 +65,14 @@ class CaesarCipher:
         return ''.join(deciphered_text)
 
     @staticmethod
-    def break_cipher(text: str) -> str:
+    def break_cipher(text: str) -> str | bool:
         """
-            Function which decrypts given text encrypted from Caesar cipher
+            Function which decrypts given text encrypted with Caesar cipher
             with unknown shift parameter
         """
+        if not CaesarCipher.__validate_data(text=text):
+            return False
+
         dictionary = enchant.Dict("en_US")
         characters = [char for char in text if char.isalpha()]
         most_common_char = Counter(characters).most_common(1)[0][0]
