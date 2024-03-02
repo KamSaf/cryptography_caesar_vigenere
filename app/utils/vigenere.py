@@ -1,6 +1,7 @@
 from english_words import get_english_words_set
 import enchant
 
+
 class VigenereCipher:
 
     ALPHABET_LENGTH = 26

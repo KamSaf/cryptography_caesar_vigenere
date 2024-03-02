@@ -1,0 +1,3 @@
+pyenchant
+english-words
+pytest

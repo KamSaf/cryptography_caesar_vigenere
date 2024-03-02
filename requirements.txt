@@ -1,2 +1,0 @@
-pyenchant
-english-words
