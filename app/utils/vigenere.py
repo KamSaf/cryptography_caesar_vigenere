@@ -44,7 +44,7 @@ class VigenereCipher:
         """
         if not VigenereCipher.__validate_data(text=text, keyword=keyword, keyword_length=len(keyword)):
             return False
-        
+
         ciphered_text = []
         keyword_char_counter = 0
         for i in range(len(text)):
@@ -66,7 +66,7 @@ class VigenereCipher:
         """
         #  The keyword is being reversed and then used as a new keyword in cipher operation which results in encrypted text
         reversed_keyword = [VigenereCipher.ALPHABET[(VigenereCipher.ALPHABET_LENGTH - (ord(keyword[i]) - 97)) % VigenereCipher.ALPHABET_LENGTH] for i in range(len(keyword))]
-        return VigenereCipher.cipher(text=text, keyword=reversed_keyword)
+        return VigenereCipher.cipher(text=text, keyword=''.join(reversed_keyword))
 
     @staticmethod
     def break_cipher(text: str) -> str | bool:
@@ -74,9 +74,9 @@ class VigenereCipher:
             Function which decrypts given text encrypted with Vigenere cipher
             with unknown 3 letter long keyword (english). Decrypted text is lower case
         """
-        if not VigenereCipher.__validate_data(text=text):
+        if not VigenereCipher.__validate_data(text=text, keyword_length=3):
             return False
-        
+
         KEYWORD_LENGTH = 3
         keys = [word for word in get_english_words_set(['web2'], lower=True, alpha=True) if len(word) == KEYWORD_LENGTH]
         dictionary = enchant.Dict("en_US")

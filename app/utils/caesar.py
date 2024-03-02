@@ -1,6 +1,7 @@
 from collections import Counter
 import enchant
 
+
 class CaesarCipher:
 
     # Characters in order of their frequency in english language
@@ -30,7 +31,7 @@ class CaesarCipher:
         """
         if not CaesarCipher.__validate_data(text=text, shift=shift):
             return False
-        
+
         ciphered_text = []
         for char in text:
             if not char.isalpha():
