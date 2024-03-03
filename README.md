@@ -29,7 +29,7 @@ While in app directory, run:
 
 
 
-## To run tests
+## To run unit tests
 
 While in app directory, run:
 
