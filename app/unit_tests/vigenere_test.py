@@ -30,6 +30,11 @@ class TestVigenereCipher:
 
         assert deciphered_text == correctly_deciphered_text
 
+    #  Test plaintext column generation
+    def test_plaintext_column(self):
+        correct_column = ['d', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c']
+        assert Vigenere._VigenereCipher__plain_text_colummn(char='d') == correct_column
+
     #  Test data validation - valid data - text: str, keyword: str, keyword_length: int
     def test_vigenere_validate_data_is_valid(self):
         assert Vigenere._VigenereCipher__validate_data(text='text', keyword='key', keyword_length=3) is True

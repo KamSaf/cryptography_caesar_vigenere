@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="d-grid gap-2 text-center" style="margin-top: 50px;">
+        <a class="btn btn-lg btn-dark" href="{{ url_for('caesar') }}" style="margin-bottom: 25px;">Caesar</a>
+        <a class="btn btn-lg btn-dark" href="{{ url_for('vigenere') }}">Vigenere</a>
+    </div>
+{% endblock %}
