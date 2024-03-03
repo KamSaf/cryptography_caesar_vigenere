@@ -4,11 +4,16 @@ Web application created with Python and FastAPI for Cryptography classes. It all
 
 
 
-## How to install
+## How to install (for Linux)
 
 Create Python virtual environment, for example:
 
         virtualenv venv
+
+Activate virtual environment:
+
+        cd venv/bin
+        source activate
 
 Run command for installing requirements
 
