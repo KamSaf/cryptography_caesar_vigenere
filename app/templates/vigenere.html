@@ -1,5 +1,82 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    Vigenere
+    <form method="POST" action="{{ url_for('vigenere_encode') }}" class="container" style="margin-top: 70px;">
+        <h1>Encode</h1>
+        <div class="row" style="margin-top: 25px;">
+            <div class="col-5">
+            {% if input_text_encode %}
+                <textarea type="text" class="form-control {% if error_encode %} is-invalid {% endif %}" name="text" rows="4" cols="50" value="{{ input_text_encode }}" required>{{ input_text_encode }}</textarea>
+            {% else %}
+                <textarea type="text" class="form-control" name="text" rows="4" cols="50" placeholder="Your text" required></textarea>
+            {% endif %}
+            </div>
+            <div class="col-2" style="margin-top: 5px;">
+                <h6>Keyword</h6>
+                <input type="text" class="form-control {% if error_encode %} is-invalid {% endif %}" name="keyword" {% if keyword_encode %} value="{{ keyword_encode }}" {% endif %} required>
+                <br>
+                <button type="submit" class="btn btn-dark">Encode</button>
+            </div>
+            <div class="col-5">
+            {% if encoded_text %}
+                <textarea type="text" class="form-control {% if error_encode %} is-invalid {% endif %}" name="encoded_text" rows="4" cols="50" {% if encoded_text %} value="{{ encoded_text }}" {% endif %}>{{ encoded_text }}</textarea>
+            {% else %}
+                <textarea type="text" class="form-control {% if error_encode %} is-invalid {% endif %}" name="encoded_text" rows="4" cols="50" placeholder="Encoded text"></textarea>
+            {% endif %}
+            </div>
+        </div>
+    </form>
+
+    <form method="POST" action="{{ url_for('vigenere_decode') }}" class="container" style="margin-top: 90px;">
+        <h1>Decode</h1>
+        <div class="row" style="margin-top: 25px;">
+            <div class="col-5">
+            {% if input_text_decode %}
+                <textarea type="text" class="form-control {% if error_decode %} is-invalid {% endif %}" name="text" rows="4" cols="50" value="{{ input_text_decode }}" required>{{ input_text_decode }}</textarea>
+            {% else %}
+                <textarea type="text" class="form-control {% if error_decode %} is-invalid {% endif %}" name="text" rows="4" cols="50" placeholder="Your encoded text" required></textarea>
+            {% endif %}
+            </div>
+            <div class="col-2" style="margin-top: 5px;">
+                <h6>Keyword</h6>
+                <input type="text" class="form-control {% if error_decode %} is-invalid {% endif %}" name="keyword" {% if keyword_decode %} value="{{ keyword_decode }}" {% endif %} required>
+                <br>
+                <button type="submit" class="btn btn-dark">Decode</button>
+            </div>
+            <div class="col-5">
+            {% if decoded_text %}
+                <textarea type="text" class="form-control {% if error_decode %} is-invalid {% endif %}" name="decoded_text" rows="4" cols="50" {% if decoded_text %} value="{{ decoded_text }}" {% endif %}>{{ decoded_text }}</textarea>
+            {% else %}
+                <textarea type="text" class="form-control {% if error_decode %} is-invalid {% endif %}" name="decoded_text" rows="4" cols="50" placeholder="Decoded text"></textarea>
+            {% endif %}
+            </div>
+        </div>
+    </form>
+    
+    <form method="POST" action="{{ url_for('vigenere_break_cipher') }}" class="container" style="margin-top: 90px;">
+        <h1>Break code</h1>
+        <div class="row" style="margin-top: 25px;">
+            <div class="col-5">
+            {% if input_text_break_code %}
+                <textarea type="text" class="form-control {% if error_break_code %} is-invalid {% endif %}" name="text" rows="4" cols="50" value="{{ input_text_break_code }}" required>{{ input_text_break_code }}</textarea>
+            {% else %}
+                <textarea type="text" class="form-control {% if error_break_code %} is-invalid {% endif %}" name="text" rows="4" cols="50" placeholder="Your encoded text (keyword used must be a 3 letters long english word)" required></textarea>
+            {% endif %}
+            </div>
+            <div class="col-2" style="margin-top: 35px;">
+                <button type="submit" class="btn btn-dark">Decode</button>
+            </div>
+            <div class="col-5">
+            {% if broken_code %}
+                <textarea type="text" class="form-control {% if error_break_code %} is-invalid {% endif %}" name="broken_code" rows="4" cols="50" {% if broken_code %} value="{{ broken_code }}" {% endif %}>{{ broken_code }}</textarea>
+            {% else %}
+                <textarea type="text" class="form-control {% if error_break_code %} is-invalid {% endif %}" name="broken_code" rows="4" cols="50" placeholder="Decoded text" ></textarea>
+            {% endif %}
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <a class="btn btn-outline-secondary" href="{{ url_for('root') }}" style="margin-top: 90px;">Go back</a>
+    </div>
 {% endblock %}
