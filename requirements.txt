@@ -1,0 +1,6 @@
+pyenchant
+english-words
+pytest
+fastapi
+uvicorn
+jinja2

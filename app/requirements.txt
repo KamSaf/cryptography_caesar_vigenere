@@ -1,3 +1,0 @@
-pyenchant
-english-words
-pytest
