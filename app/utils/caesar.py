@@ -37,7 +37,7 @@ class CaesarCipher:
             if not char.isalpha():
                 ciphered_text.append(char)
                 continue
-            char = ord(char) + shift
+            char = ord(char.lower()) + shift
             if char > CaesarCipher.LOWERCASE_Z_CODE:
                 char = (CaesarCipher.LOWERCASE_A_CODE - 1) + (char - CaesarCipher.LOWERCASE_Z_CODE)
             char = chr(char)
@@ -58,7 +58,7 @@ class CaesarCipher:
             if not char.isalpha():
                 deciphered_text.append(char)
                 continue
-            char = ord(char) - shift
+            char = ord(char.lower()) - shift
             if char < CaesarCipher.LOWERCASE_A_CODE:
                 char = CaesarCipher.LOWERCASE_Z_CODE - (CaesarCipher.LOWERCASE_A_CODE - 1 - char)
             char = chr(char)
