@@ -52,9 +52,9 @@ class VigenereCipher:
                 ciphered_text.append(text[i])
                 continue
 
-            keyword_char = keyword[keyword_char_counter]
+            keyword_char = keyword[keyword_char_counter].lower()
             keyword_char_counter = (keyword_char_counter + 1) % len(keyword)
-            plain_text_column = VigenereCipher.__plain_text_colummn(text[i])
+            plain_text_column = VigenereCipher.__plain_text_colummn(text[i].lower())
             ciphered_text.append(plain_text_column[VigenereCipher.ALPHABET.index(keyword_char)])
         return ''.join(ciphered_text)
 
