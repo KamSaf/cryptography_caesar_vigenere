@@ -21,7 +21,7 @@ Run command for installing requirements
 
 
 
-## To run
+## How to run
 
 While in app directory, run:
 
@@ -29,7 +29,7 @@ While in app directory, run:
 
 
 
-## To run unit tests
+## Testing
 
 While in app directory, run:
 
